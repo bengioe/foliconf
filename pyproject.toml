@@ -1,0 +1,30 @@
+[project]
+name = "foliconf"
+readme = "README.md"
+classifiers = ["Operating System :: OS Independent", "Programming Language :: Python", "Programming Language :: Python :: 3"]
+keywords = ["foliconf"]
+requires-python = ">=3.8"
+dynamic = ["version"]
+dependencies = [
+    "numpydoc"
+]
+
+[[project.authors]]
+name = "Emmanuel Bengio"
+email = "bengioe@gmail.com"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+py_version = "auto"
+line_length = 120
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
