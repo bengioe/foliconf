@@ -86,7 +86,7 @@ ConfigAttr = namedtuple("ConfigAttr", ["type", "docstring"])
 
 DISCLAIMER = """# This file was generated automatically
 # Do not edit by hand, your changes will be lost
-# Regenerate by running `python -m foliconf`
+# Regenerate by running `python -m foliconf {}`
 """
 STUB_BASE = """def config_class(name): ...
 def config_from_dict(config_dict: dict[str, Any]) -> Config: ...
@@ -191,7 +191,7 @@ class StubMaker(ast.NodeVisitor):
                 s += "    " * (indentlevel + 1) + "...\n"
             return s
 
-        s = DISCLAIMER
+        s = DISCLAIMER.format(self._base_path)
         s += f"from typing import {', '.join(sorted(set(typing_imports)))}\n"
         s += "\n".join(sorted(set(imports))) + "\n\n"
         s += f("Config", self.config, 0)
@@ -200,7 +200,7 @@ class StubMaker(ast.NodeVisitor):
         with open(self.stub_path, "w") as f:
             f.write(s)
         with open(self._base_path, "w") as f:
-            f.write(DISCLAIMER + CONFIG_PY_BASE)
+            f.write(DISCLAIMER.format(self._base_path) + CONFIG_PY_BASE)
 
     def visit_ClassDef(self, node):
         for dec in node.decorator_list:
